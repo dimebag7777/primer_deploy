@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn para my_flask_app Flask
+after=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/home/ubuntu/my_flask_app
+Environment="PATH=/home/ubuntu/my_flask_app/venv/bin"
+ExecStart=/home/ubuntu/my_flask_app/venv/bin/gunicorn \
+    --workers 3 \
+    --bind unix:/home/ubuntu/my_flask_app/flask_app.sock \
+    app:app
+
+[Install]
+WantedBy=multi-user.target
